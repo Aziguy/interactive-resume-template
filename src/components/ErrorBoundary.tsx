@@ -1,59 +1,43 @@
-import { Component, type ReactNode, type ErrorInfo } from 'react'
-
-interface Props {
-  children: ReactNode
-}
+import { Component, type ErrorInfo, type ReactNode } from 'react'
 
 interface State {
-  hasError: boolean
   error: Error | null
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = { hasError: false, error: null }
-  }
+export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
+  state: State = { error: null }
 
   static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error }
+    return { error }
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Resume rendering error:', error, errorInfo)
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('Resume rendering error:', error, info)
   }
 
   render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-8">
-          <div className="max-w-md text-center space-y-4">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              Something went wrong
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400">
-              There might be an issue with your resume configuration. Check your{' '}
-              <code className="px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-sm font-mono">
-                resume-config.ts
-              </code>{' '}
-              file for any errors.
-            </p>
-            {this.state.error && (
-              <pre className="mt-4 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 text-xs text-left overflow-auto">
-                {this.state.error.message}
-              </pre>
-            )}
-            <button
-              onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-medium hover:opacity-90 transition-opacity"
-            >
-              Reload page
-            </button>
-          </div>
-        </div>
-      )
-    }
+    if (!this.state.error) return this.props.children
 
-    return this.props.children
+    return (
+      <div className="grid min-h-screen place-items-center p-8">
+        <div className="max-w-md space-y-4 text-center">
+          <h1 className="text-2xl font-bold">Something went wrong</h1>
+          <p className="text-muted">
+            Check <code className="rounded bg-ink/10 px-1.5 py-0.5 font-mono text-sm">src/config/resume.ts</code> for
+            errors.
+          </p>
+          <pre className="overflow-auto rounded-lg bg-red-500/10 p-4 text-left text-xs text-red-600">
+            {this.state.error.message}
+          </pre>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-surface"
+          >
+            Reload
+          </button>
+        </div>
+      </div>
+    )
   }
 }
