@@ -10,20 +10,25 @@ export const resumeConfig: ResumeConfig = {
   personal: {
     name: 'Hippolyte Kengni',
     title: {
-      fr: 'Développeur Full-Stack & Automatisation des tests',
-      en: 'Full-Stack Developer & Test Automation Engineer',
+      fr: 'Ingénieur automatisation des tests & Développeur Full-Stack',
+      en: 'Test Automation Engineer & Full-Stack Developer',
     },
     headline: {
       fr: 'Certified Associate Web Developer · Python Programmer · Azure · GitHub · Scrum Fundamentals',
       en: 'Certified Associate Web Developer · Python Programmer · Azure · GitHub · Scrum Fundamentals',
     },
     availability: {
-      fr: 'Recherche active d’un CDI à partir d’août 2025',
-      en: 'Actively looking for a permanent position from August 2025',
+      fr: 'Actuellement en poste chez Dedalus Healthcare France',
+      en: 'Currently at Dedalus Healthcare France',
     },
     location: 'Bordeaux, France',
     facts: [
       { icon: 'briefcase', label: { fr: '+8 ans d’expérience en IT', en: '8+ years in IT' } },
+      {
+        icon: 'award',
+        label: { fr: '+50 certifications Credly', en: '50+ Credly certifications' },
+        href: 'https://www.credly.com/users/hippolyte-kengni/badges/credly',
+      },
       { icon: 'car', label: { fr: 'Véhiculé, permis B', en: 'Driving licence, own car' } },
       { icon: 'globe', label: { fr: 'Mobile en France et à l’international', en: 'Open to relocation in France and abroad' } },
     ],
@@ -39,11 +44,36 @@ export const resumeConfig: ResumeConfig = {
   ],
 
   profile: {
-    fr: 'Développeur full-stack avec plus de 8 ans d’expérience en IT, je conçois des applications web robustes en Python, Django et React, et j’automatise les tests pour fiabiliser chaque livraison. Autodidacte (MOOCs, défis techniques), j’aime résoudre des problèmes complexes et je veille en continu sur les nouvelles technologies. Je souhaite rejoindre une équipe dynamique pour construire des solutions innovantes.',
-    en: 'Full-stack developer with 8+ years in IT. I build robust web applications with Python, Django and React, and automate testing to make every release reliable. Self-taught through MOOCs and coding challenges, I enjoy solving complex problems and keep up with emerging technologies. I am looking to join a dynamic team to build innovative products.',
+    fr: 'Ingénieur en automatisation des tests et développeur full-stack, fort de plus de 8 ans d’expérience en IT. Je bâtis des stratégies de test outillées, traçables et maintenables (Playwright, Cypress, Selenium, Xray) et des applications web robustes en Python, Django et React. Convaincu que l’IA transforme le métier de la qualité, j’exploite LLM et agents pour concevoir, générer et maintenir les tests plus vite, avec l’objectif d’une couverture proche de 100 %. Autodidacte, titulaire de plus de 50 certifications, je rends la qualité mesurable et partagée par toute l’équipe.',
+    en: 'Test automation engineer and full-stack developer with 8+ years in IT. I build tooled, traceable and maintainable test strategies (Playwright, Cypress, Selenium, Xray) and robust web applications with Python, Django and React. Convinced that AI is reshaping quality engineering, I use LLMs and agents to design, generate and maintain tests faster, aiming for near 100% coverage. Self-taught and holder of 50+ certifications, I make quality measurable and shared across the whole team.',
   },
 
   experiences: [
+    {
+      id: 'dedalus',
+      role: { fr: 'Ingénieur chargé de l’automatisation des tests', en: 'Test Automation Engineer' },
+      company: 'Dedalus Healthcare France',
+      period: { start: '2025-10', end: 'present' },
+      summary: {
+        fr: 'Référent automatisation sur des logiciels de santé : je fais évoluer la stratégie de test vers un modèle outillé, traçable et augmenté par l’IA.',
+        en: 'Automation lead on healthcare software, evolving the test strategy towards a tooled, traceable and AI-augmented model.',
+      },
+      highlights: {
+        fr: [
+          'Maintien et fiabilisation du référentiel de tests automatisés construit avec Agilitest',
+          'Conception d’une méthodologie de test pour structurer un référentiel unique et traçable dans Xray (exigences, cas de test, campagnes)',
+          'Étude et proposition de nouvelles solutions d’automatisation (Playwright, Cypress) pour accélérer et pérenniser les campagnes',
+          'Démarche d’IA appliquée aux tests (LLM, agents) pour générer et revoir les cas de test, gagner en productivité et viser une couverture proche de 100 %',
+        ],
+        en: [
+          'Maintain and harden the automated test repository built with Agilitest',
+          'Designed a test methodology to build a single, traceable test repository in Xray (requirements, test cases, executions)',
+          'Assess and propose new automation solutions (Playwright, Cypress) to speed up and future-proof test campaigns',
+          'Drive AI-assisted testing (LLMs, agents) to generate and review test cases, boost productivity and target near 100% coverage',
+        ],
+      },
+      techs: ['Agilitest', 'Xray', 'Jira', 'Playwright', 'Cypress', 'TypeScript', 'LLM'],
+    },
     {
       id: 'lectra-april',
       role: { fr: 'Ingénieur automatisation des tests', en: 'Test Automation Engineer' },
@@ -52,16 +82,16 @@ export const resumeConfig: ResumeConfig = {
       period: { start: '2024-09', end: '2025-07' },
       highlights: {
         fr: [
-          'Définition des stratégies de test (TNR, tests exploratoires, jeux de données) pour fiabiliser les livrables',
-          'Conception de tests E2E automatisés pour les applications web avec Cypress, Selenium et Cucumber',
-          'Revues de PR/MR et documentation des processus de test en environnement Agile',
-          'Intégration continue et suivi qualité via Jenkins, GitHub Actions et GitLab CI',
+          'Stratégies de test définies de bout en bout (non-régression, tests exploratoires, jeux de données) pour sécuriser chaque livraison',
+          'Suites E2E automatisées sur les applications web avec Cypress, Selenium et Cucumber (BDD)',
+          'Revues de PR/MR et documentation des processus de test au sein d’équipes Agile',
+          'Tests intégrés aux pipelines CI/CD (Jenkins, GitHub Actions, GitLab CI) avec reporting Allure',
         ],
         en: [
-          'Defined test strategies (regression, exploratory testing, test data) to secure deliverables',
-          'Designed automated E2E tests for web applications with Cypress, Selenium and Cucumber',
-          'Reviewed PRs/MRs and documented test processes in an Agile setting',
-          'Drove continuous integration and quality tracking with Jenkins, GitHub Actions and GitLab CI',
+          'Defined end-to-end test strategies (regression, exploratory testing, test data) to secure every release',
+          'Built automated E2E suites for web applications with Cypress, Selenium and Cucumber (BDD)',
+          'Reviewed PRs/MRs and documented test processes within Agile teams',
+          'Integrated tests into CI/CD pipelines (Jenkins, GitHub Actions, GitLab CI) with Allure reporting',
         ],
       },
       techs: ['Cypress', 'TypeScript', 'Selenium', 'Cucumber', 'Python', 'C#', 'Allure', 'Git'],
@@ -74,16 +104,16 @@ export const resumeConfig: ResumeConfig = {
       period: { start: '2021-11', end: '2024-11' },
       highlights: {
         fr: [
-          'Développement d’API REST avec Django REST Framework et PostgreSQL, selon les principes SOLID et KISS',
-          'Tests des web services avec Bruno et pytest (collections, environnements)',
-          'Documentation complète de l’API avec Hugo et formation des développeurs juniors',
-          'Pipelines CI/CD (GitHub Actions, Jenkins, Docker) pour automatiser build, tests et déploiements',
+          'Conception d’API REST robustes et sécurisées (Django REST Framework, PostgreSQL) selon les principes SOLID et KISS',
+          'Fiabilité des web services garantie par des tests automatisés pytest et des collections Bruno',
+          'Documentation complète de l’API avec Hugo et montée en compétence des développeurs juniors',
+          'Pipelines CI/CD (GitHub Actions, Jenkins, Docker) automatisant build, tests et déploiements',
         ],
         en: [
-          'Built REST APIs with Django REST Framework and PostgreSQL following SOLID and KISS principles',
-          'Tested web services with Bruno and pytest (collections, environments)',
-          'Wrote the full API documentation with Hugo and onboarded junior developers',
-          'Set up CI/CD pipelines (GitHub Actions, Jenkins, Docker) to automate build, test and deployment',
+          'Designed robust, secure REST APIs (Django REST Framework, PostgreSQL) following SOLID and KISS principles',
+          'Ensured web service reliability with automated pytest suites and Bruno collections',
+          'Wrote the full API documentation with Hugo and coached junior developers',
+          'Built CI/CD pipelines (GitHub Actions, Jenkins, Docker) automating build, test and deployment',
         ],
       },
       techs: ['Python', 'Django', 'Django REST Framework', 'PostgreSQL', 'Docker', 'GitHub Actions', 'PHP', 'WordPress'],
@@ -96,15 +126,15 @@ export const resumeConfig: ResumeConfig = {
       period: { start: '2018-12', end: '2022-10' },
       highlights: {
         fr: [
-          'Pilotage de l’assurance qualité et de l’automatisation des tests sur les projets clients',
+          'Pilotage de l’assurance qualité et de l’automatisation des tests sur l’ensemble des projets clients',
           'Temps de test réduit de plus de 20 % grâce à des scripts Selenium et Robot Framework',
-          'Tests E2E avec Cypress pour valider l’ensemble des composants applicatifs',
+          'Tests E2E Cypress couvrant l’ensemble des composants applicatifs',
           'Suites de tests d’API Postman intégrées aux pipelines CI/CD, avec rapports détaillés',
         ],
         en: [
-          'Led quality assurance and test automation across client projects',
+          'Led quality assurance and test automation across all client projects',
           'Cut testing time by over 20% with Selenium and Robot Framework scripts',
-          'Ran E2E tests with Cypress to validate every application component',
+          'Covered every application component with Cypress E2E tests',
           'Built Postman API test suites integrated into CI/CD pipelines with detailed reports',
         ],
       },
@@ -161,12 +191,23 @@ export const resumeConfig: ResumeConfig = {
 
   skills: [
     {
-      title: { fr: 'Développement', en: 'Development' },
-      items: ['Python', 'Django', 'Celery', 'React', 'TypeScript', { fr: 'API REST', en: 'REST APIs' }],
+      title: { fr: 'Qualité & tests', en: 'Quality & testing' },
+      items: ['Playwright', 'Cypress', 'Selenium', 'Robot Framework', 'Agilitest', 'Xray', 'Postman', 'pytest'],
     },
     {
-      title: { fr: 'Qualité & tests', en: 'Quality & testing' },
-      items: ['Cypress', 'Selenium', 'Robot Framework', 'Postman', 'pytest', { fr: 'Frameworks d’automatisation', en: 'Automation frameworks' }],
+      title: { fr: 'IA & productivité', en: 'AI & productivity' },
+      items: [
+        'LLM',
+        { fr: 'Agents IA', en: 'AI agents' },
+        'Agent Skills',
+        'MCP',
+        'Prompt engineering',
+        { fr: 'Tests générés par IA', en: 'AI-generated tests' },
+      ],
+    },
+    {
+      title: { fr: 'Développement', en: 'Development' },
+      items: ['Python', 'Django', 'Celery', 'React', 'TypeScript', { fr: 'API REST', en: 'REST APIs' }],
     },
     {
       title: { fr: 'DevOps', en: 'DevOps' },
@@ -174,7 +215,7 @@ export const resumeConfig: ResumeConfig = {
     },
     {
       title: { fr: 'Méthodes', en: 'Methods' },
-      items: ['Scrum', 'Agile', { fr: 'Gestion de projet', en: 'Project management' }],
+      items: ['Scrum', 'Agile', 'BDD', { fr: 'Gestion de projet', en: 'Project management' }],
     },
   ],
 
@@ -193,9 +234,9 @@ export const resumeConfig: ResumeConfig = {
   ],
 
   seo: {
-    title: 'Hippolyte Kengni · Développeur Full-Stack & QA Automation',
+    title: 'Hippolyte Kengni · Ingénieur automatisation des tests & Développeur Full-Stack',
     description:
-      'CV interactif d’Hippolyte Kengni, développeur full-stack Python/Django/React et ingénieur en automatisation des tests (Cypress, Selenium), basé à Bordeaux.',
+      'CV interactif d’Hippolyte Kengni, ingénieur en automatisation des tests (Playwright, Cypress, Xray, IA) et développeur full-stack Python/Django/React, basé à Bordeaux.',
     url: 'https://aziguy.github.io/interactive-resume-template/',
   },
 
