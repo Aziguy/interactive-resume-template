@@ -1,281 +1,188 @@
-# Customization Guide
+# Guide de personnalisation
 
-This guide walks you through the config file section by section.
+Tout le CV est décrit dans [`src/config/resume.ts`](../src/config/resume.ts). Le fichier est typé (`ResumeConfig`, voir [`src/types/resume.ts`](../src/types/resume.ts)) : votre éditeur propose l'autocomplétion et signale les erreurs. Un modèle commenté est disponible dans [`resume.example.ts`](../src/config/resume.example.ts).
 
-## The Config File
+Au build, le plugin `resume-validate` liste les points à corriger : traductions manquantes, dates mal formées, ids en double, icônes inconnues, photo introuvable.
 
-Everything about your resume is defined in a single file: `src/data/resume-config.ts`.
+## Textes multilingues
 
-This file exports a `resumeConfig` object with TypeScript types, so your editor will give you autocompletion and error checking.
+Les champs traduisibles prennent une entrée par langue déclarée dans `i18n.available` :
 
-A fully commented example is available in `src/data/resume-config.example.ts`.
-
-## Multi-language Text
-
-All text fields that need translation use the `LocalizedString` format:
-
-```typescript
-title: { en: 'Developer', fr: 'Developpeur', de: 'Entwickler' }
+```ts
+title: { fr: 'Développeur', en: 'Developer' }
+highlights: { fr: ['Point 1', 'Point 2'], en: ['Item 1', 'Item 2'] }
 ```
 
-Add as many languages as you need. Just make sure each language code is also listed in `languages.available`.
+```ts
+i18n: {
+  default: 'fr',            // langue de repli, du HTML statique et du SEO
+  available: ['fr', 'en'],  // une seule langue masque le sélecteur
+  labels: { fr: 'FR', en: 'EN' }, // optionnel
+}
+```
 
-## Sections
+Les libellés de l'interface (titres de sections, boutons, dates) sont intégrés en français et en anglais. Pour une autre langue ou un autre intitulé, utilisez `labels` :
 
-### Personal Info
+```ts
+labels: {
+  fr: { sections: { experience: 'Parcours' } },
+  de: { sections: { experience: 'Berufserfahrung', skills: 'Kenntnisse' } },
+}
+```
 
-```typescript
+## En-tête
+
+```ts
 personal: {
   name: 'Jane Doe',
-  photo: '/images/photo.jpg',      // Place in public/images/
-  photoBackEmoji: '👩‍💻',            // Shown on photo flip
-  title: { en: 'Developer', fr: 'Developpeur' },
-  subtitle: { en: '5 years exp.', fr: '5 ans exp.' },
+  title: { fr: 'Développeuse Full-Stack', en: 'Full-Stack Developer' },
+  headline: { fr: 'Certifiée AWS · React', en: 'AWS Certified · React' }, // optionnel
+  availability: { fr: 'Disponible en septembre', en: 'Available in September' }, // mis en avant
   location: 'Paris, France',
+  photo: '/images/me.jpg', // optionnel
+  facts: [
+    { icon: 'briefcase', label: { fr: "6 ans d'expérience", en: '6 years of experience' } },
+    { icon: 'car', label: { fr: 'Permis B', en: 'Driving licence' } },
+  ],
 }
 ```
 
-**Photo**: Place your photo in `public/images/`. Recommended size: 256x256px, square.
+- **Photo** : sans `photo`, la première image de `public/images/` est utilisée ; à défaut, les initiales. Format carré conseillé (400 × 400 px).
+- **Icônes** disponibles : voir [`icon-names.ts`](../src/components/ui/icon-names.ts) (`briefcase`, `car`, `globe`, `award`, `book`, `camera`, `plane`, `bike`...).
 
-### Languages
+## Contact
 
-```typescript
-languages: {
-  default: 'en',                   // Fallback language
-  available: ['en', 'fr'],         // All supported languages
-  labels: { en: 'EN', fr: 'FR' }, // Labels shown in the toggle
-}
-```
-
-For a single language, set `available` to just one: `['en']`. The language toggle will be hidden.
-
-### Contact
-
-```typescript
+```ts
 contact: [
+  { type: 'phone', label: '+33 6 12 34 56 78' },          // lien tel: automatique
+  { type: 'email', label: 'jane@example.com' },           // lien mailto: et bouton copier
+  { type: 'linkedin', label: 'janedoe', href: 'https://linkedin.com/in/janedoe' },
   { type: 'github', label: 'janedoe', href: 'https://github.com/janedoe' },
-  { type: 'linkedin', label: 'Jane Doe', href: 'https://linkedin.com/in/janedoe' },
-  { type: 'email', label: 'jane@example.com' },     // auto mailto:
-  { type: 'phone', label: '+33 6 12 34 56 78' },    // auto tel:
-  { type: 'location', label: 'Paris, France' },
   { type: 'website', label: 'janedoe.dev', href: 'https://janedoe.dev' },
+  { type: 'location', label: 'Paris, France' },
 ]
 ```
 
-Available types: `github`, `linkedin`, `email`, `phone`, `location`, `website`.
+## Profil
 
-For `email` and `phone`, the link is auto-generated if you don't provide `href`.
-
-### Skills
-
-Three display types are available:
-
-```typescript
-skills: [
-  {
-    title: { en: 'Frontend' },
-    type: 'badges',              // Colored tech badges
-    items: [
-      { name: 'React', color: '#61DAFB' },
-      { name: 'TypeScript', color: '#3178C6' },
-    ],
-  },
-  {
-    title: { en: 'Languages' },
-    type: 'languages',           // Name + level
-    items: [
-      { name: 'French', level: { en: 'Native' } },
-      { name: 'English', level: { en: 'Professional' }, details: 'TOEIC 910' },
-    ],
-  },
-  {
-    title: { en: 'DevOps' },
-    type: 'text',                // Simple text list
-    items: [
-      { name: 'Docker, Kubernetes, AWS' },
-    ],
-  },
-]
+```ts
+profile: { fr: 'Trois à cinq lignes qui résument votre valeur.', en: '...' }
 ```
 
-### Experiences
+## Expériences
 
-```typescript
+```ts
 experiences: [
   {
-    id: 'company-a',               // Unique identifier
-    company: { en: 'TechCorp' },
-    role: { en: 'Senior Dev' },
-    type: { en: 'Permanent' },     // Optional badge
-    period: { en: '2022 - Present' },
-    description: { en: 'Built a SaaS platform...' },
+    id: 'acme',                                   // unique
+    role: { fr: 'Lead développeuse', en: 'Lead developer' },
+    company: 'Acme',
+    location: { fr: 'Lyon', en: 'Lyon, France' }, // optionnel
+    contract: { fr: 'CDI', en: 'Permanent' },      // optionnel, badge
+    period: { start: '2022-03', end: 'present' },  // YYYY ou YYYY-MM
+    summary: { fr: '...', en: '...' },             // optionnel
+    highlights: { fr: ['...'], en: ['...'] },      // visibles et imprimés
     techs: ['React', 'TypeScript'],
-    isHighlighted: true,            // Visual emphasis (optional)
-    details: {                      // Expandable content (optional)
-      context: { en: 'Team of 8...' },
-      tasks: { en: ['Led architecture', 'Mentored juniors'] },
-      training: { en: ['React Advanced'] },  // Optional
-      env: { en: 'React / TypeScript / AWS' },
-    },
-    subItem: {                      // Sub-entry (optional)
-      title: { en: 'Side project' },
-      description: { en: 'Built an internal tool' },
+    details: {                                     // optionnel, dépliable, non imprimé
+      context: { fr: '...', en: '...' },
+      tasks: { fr: ['...'], en: ['...'] },
     },
   },
 ]
 ```
 
-If `details` is provided, the experience becomes expandable (click to expand on desktop, opens modal on mobile).
+La période est formatée selon la langue (« Mars 2022 - Aujourd'hui », « Mar 2022 - Present ») et la durée est calculée (« 2 ans 7 mois »). Gardez 3 à 4 `highlights` courts, orientés résultats : c'est ce qui rend le PDF lisible.
 
-### Projects (optional)
+## Formations et certifications
 
-```typescript
-projects: [
-  {
-    id: 'my-project',
-    title: { en: 'WeatherApp' },
-    description: { en: 'A weather dashboard...' },
-    techs: ['React', 'TypeScript'],
-    url: 'https://weather.example.com',     // Optional
-    github: 'https://github.com/me/app',    // Optional
-  },
-]
-```
-
-Remove or leave empty to hide the section entirely.
-
-### Education
-
-```typescript
+```ts
 education: [
   {
-    school: { en: 'University of Paris' },
-    degree: { en: 'Master in CS' },
-    specialty: { en: 'Web Development' },   // Optional
-    period: '2017 - 2019',                  // Optional
-    logo: '/images/school.png',             // Optional (place in public/images/)
+    id: 'master',
+    kind: 'degree',            // 'degree' ou 'certification' (change l'icône)
+    title: { fr: 'Master Informatique', en: "Master's in Computer Science" },
+    school: 'Université de Lyon',
+    period: { start: '2017', end: '2019' }, // ou { start: '2023-06' } pour une date unique
+    description: { fr: '...', en: '...' },  // optionnel
+    url: 'https://...',                     // optionnel (lien de vérification)
   },
 ]
 ```
 
-### Hobbies (optional)
+## Compétences
 
-```typescript
-hobbies: [
+```ts
+skills: [
+  { title: { fr: 'Développement', en: 'Development' }, items: ['Python', 'Django', 'React'] },
+  { title: { fr: 'Méthodes', en: 'Methods' }, items: ['Scrum', { fr: 'Revue de code', en: 'Code review' }] },
+]
+```
+
+Un élément est soit un nom de technologie (sa couleur de marque est reprise depuis [`tech-registry.ts`](../src/data/tech-registry.ts)), soit un libellé traduit. Pour ajouter une technologie au registre :
+
+```ts
+'Ma Techno': { color: '#FF6600' },
+```
+
+## Langues, centres d'intérêt, projets
+
+```ts
+languages: [
+  { name: { fr: 'Anglais', en: 'English' }, level: { fr: 'C1', en: 'C1' }, score: 4 }, // score 1 à 5
+],
+interests: [
+  { icon: 'camera', label: { fr: 'Photo', en: 'Photography' } },
+],
+projects: [
   {
-    title: { en: 'Photography' },
-    details: [
-      { en: 'Street photography' },
-      { en: '5 years' },
-    ],
+    id: 'meteo',
+    title: { fr: 'Météo', en: 'Weather' },
+    description: { fr: '...', en: '...' },
+    techs: ['React'],
+    url: 'https://...',
+    repo: 'https://github.com/...',
   },
-]
+],
 ```
 
-### PDF Download (optional)
+Toute section vide ou absente est masquée.
 
-Place your PDF files in `public/cv/` and add:
+## PDF
 
-```typescript
-// One PDF per language (recommended for multi-language resumes)
-// The download button is hidden if no PDF exists for the current language
+Par défaut, un PDF A4 par langue est généré au build (`dist/cv/<langue>/CV_<Nom>_<LANGUE>.pdf`).
+
+```ts
 pdf: {
-  label: { en: 'Download PDF', fr: 'Télécharger le PDF' },
-  path: { en: '/cv/resume-en.pdf', fr: '/cv/resume-fr.pdf' },
-}
-
-// Or a single PDF for all languages
-pdf: {
-  label: { en: 'Download PDF', fr: 'Télécharger le PDF' },
-  path: '/cv/resume.pdf',
+  enabled: true,                    // false pour désactiver
+  fileName: 'CV_Jane_Doe_{lang}',   // {lang} devient FR, EN...
 }
 ```
 
-Remove the `pdf` block entirely to hide the download button.
-
-## Theme
-
-### Using a Preset
-
-```typescript
-theme: {
-  preset: 'warm',   // 'minimal' | 'warm'
-}
-```
-
-Each preset includes dark-mode-optimized colors, so accents stay readable in both light and dark modes.
-
-### Custom Colors
-
-Override individual colors:
-
-```typescript
-theme: {
-  preset: 'minimal',
-  colors: {
-    // Background & text (light)
-    bg: '#faf6f1',
-    bgCard: '#ffffff',
-    text: '#2c1810',
-    textSecondary: '#7a6455',
-    // Background & text (dark)
-    bgDark: '#1a1410',
-    bgCardDark: '#261e17',
-    textDark: '#f5ebe0',
-    textSecondaryDark: '#b8a898',
-    // Accent (light)
-    primary: '#8B5A2B',
-    primaryLight: '#D4A574',
-    // Accent (dark)
-    primaryDark: '#D4A574',
-    primaryLightDark: '#E8C9A0',
-    // Sidebar
-    sidebarLight: '#f5f0ea',
-    sidebarLightEnd: '#ebe4db',
-    sidebarDark: '#211a14',
-    sidebarDarkEnd: '#1a1410',
-  },
-}
-```
-
-### Dark Mode Default
-
-```typescript
-theme: {
-  defaultMode: 'system',  // 'light' | 'dark' | 'system'
-  // If not set, defaults to time-based (dark at night)
-}
-```
-
-## Tech Badge Colors
-
-150+ technologies are built-in with their brand colors (see `src/data/tech-registry.ts`).
-
-Tech names in `techs` arrays are **type-checked**: your editor will autocomplete valid names and flag typos.
-
-To add a custom technology, add it to the registry:
-
-```typescript
-// In src/data/tech-registry.ts
-const TECH_REGISTRY = {
-  // ... existing entries
-  'My Custom Tool': { color: '#FF6600' },
-} as const satisfies Record<string, { color: string }>
-```
+- Un PDF déposé dans `public/cv/<langue>/` est prioritaire pour cette langue.
+- Le rendu PDF utilise la feuille de style d'impression : thème clair, détails dépliables masqués, lien vers la version en ligne en pied de page (si `seo.url` est renseigné).
+- Si aucun fichier n'est servi, le bouton ouvre la boîte d'impression du navigateur.
 
 ## SEO
 
-```typescript
+```ts
 seo: {
-  title: 'Jane Doe - Developer',
-  description: 'Interactive resume of Jane Doe...',
+  title: 'Jane Doe · Développeuse Full-Stack',   // défaut : « nom · titre »
+  description: 'CV de Jane Doe...',              // défaut : le profil
+  url: 'https://janedoe.github.io/interactive-resume-template/',
 }
 ```
 
-At build time, a Vite plugin (`vite-plugin-resume-seo`) automatically reads your config and injects into the static HTML:
+Le plugin `resume-html` injecte au build le titre, la description, les balises Open Graph, l'URL canonique, un JSON-LD `schema.org/Person` et une version HTML complète du CV dans `<noscript>`.
 
-- **`<title>`** and **`<meta description>`** with your `seo` values
-- **JSON-LD** structured data ([schema.org/Person](https://schema.org/Person)) with your name, job title, email, social links, and skills
-- **`<noscript>` fallback** with the complete CV in semantic HTML (contact, skills, experiences, education, projects, hobbies)
+## Thème
 
-This means crawlers, search engines, and ATS bots see your full resume content **without executing JavaScript**. No extra configuration needed — just fill in your `seo` fields and the plugin handles the rest.
+```ts
+theme: {
+  preset: 'azure',        // azure | minimal | warm | ocean | forest | slate | lilac
+  defaultMode: 'system',  // light | dark | system
+  light: { accent: '#0b74b0' }, // surcharge d'un jeton
+  dark: { header: '#1f2430' },
+}
+```
+
+Jetons disponibles : `bg`, `surface`, `text`, `muted`, `primary`, `accent`, `header`, `headerText`, `headerAccent`. En développement, un sélecteur en bas à gauche permet d'essayer les palettes.

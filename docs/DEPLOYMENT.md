@@ -1,53 +1,34 @@
-# Deployment Guide
+# Déploiement
 
-Your resume is a static site. After running `npm run build`, the `dist/` folder contains everything you need.
+`npm run build` produit un site statique dans `dist/`, PDF compris (`dist/cv/<langue>/`). La génération PDF nécessite Chromium : `npm run pdf:setup` en local, `npx playwright install --with-deps chromium` sur un serveur de build Linux.
 
-## GitHub Pages (free, recommended)
+## GitHub Pages (recommandé)
 
-The easiest way to deploy your resume for free.
+1. Poussez le dépôt sur GitHub.
+2. **Settings > Pages > Source** : choisissez **GitHub Actions**.
+3. Chaque push sur `main` lance [`deploy.yml`](../.github/workflows/deploy.yml) : lint, installation de Chromium, build avec PDF, publication.
 
-### Automatic deployment with GitHub Actions
+URL obtenue : `https://<utilisateur>.github.io/<dépôt>/`. Le chemin de base est calculé automatiquement ; un dépôt nommé `<utilisateur>.github.io` est servi à la racine.
 
-1. Push your repo to GitHub
+Les pull requests sont construites (PDF compris) sans être publiées, ce qui valide chaque modification.
 
-2. The workflow file at `.github/workflows/deploy.yml` will automatically build and deploy to GitHub Pages on every push to `main`.
+### Domaine personnalisé
 
-3. Go to your repo **Settings > Pages** and set:
-   - Source: **GitHub Actions**
+1. **Settings > Pages > Custom domain** : saisissez votre domaine.
+2. Ajoutez un enregistrement DNS `CNAME` vers `<utilisateur>.github.io`.
+3. Créez `public/CNAME` contenant le domaine.
+4. Dans le workflow, remplacez la valeur de `VITE_BASE_PATH` par `/`.
 
-4. Your resume will be live at `https://YOUR_USERNAME.github.io/interactive-resume-template/`
+## Vercel, Netlify, Cloudflare Pages
 
-### Custom domain (optional)
+| Réglage | Valeur |
+|---|---|
+| Commande de build | `npx playwright install --with-deps chromium && npm run build` |
+| Dossier publié | `dist` |
+| Variable | `VITE_BASE_PATH=/` |
 
-1. In your repo **Settings > Pages > Custom domain**, enter your domain (e.g., `resume.janedoe.com`)
-2. Add a `CNAME` record in your DNS pointing to `YOUR_USERNAME.github.io`
-3. Create a `public/CNAME` file with your domain name
+Si l'hébergeur ne permet pas d'installer Chromium, utilisez `npm run build:fast` (sans PDF) et déposez vos PDF dans `public/cv/<langue>/`, ou laissez le bouton ouvrir la boîte d'impression.
 
-## Vercel
+## Autres hébergeurs statiques
 
-1. Go to [vercel.com](https://vercel.com) and sign in with GitHub
-2. Click **New Project** and import your repo
-3. Vercel auto-detects Vite — just click **Deploy**
-4. Your resume is live at `your-project.vercel.app`
-
-**Custom domain**: Settings > Domains > Add your domain
-
-## Netlify
-
-1. Go to [netlify.com](https://www.netlify.com) and sign in with GitHub
-2. Click **New site from Git** and select your repo
-3. Build settings:
-   - **Build command**: `npm run build`
-   - **Publish directory**: `dist`
-4. Click **Deploy**
-
-**Custom domain**: Domain settings > Add custom domain
-
-## Other static hosts
-
-Any static hosting works. Just upload the contents of the `dist/` folder:
-
-- **Cloudflare Pages**: Connect your repo, build command `npm run build`, output `dist`
-- **Firebase Hosting**: `firebase init hosting` then `firebase deploy`
-- **Render**: New Static Site, build command `npm run build`, publish `dist`
-- **Surge**: `npm install -g surge` then `surge dist`
+Construisez en local (`VITE_BASE_PATH=/ npm run build`) puis envoyez le contenu de `dist/` (Firebase Hosting, Surge, Render, un serveur Nginx...).
