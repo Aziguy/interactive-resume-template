@@ -1,4 +1,4 @@
-import { BadgeCheck } from 'lucide-react'
+import { BadgeCheck, ExternalLink } from 'lucide-react'
 import { resumeConfig } from '@/config/resume'
 import { Icon } from '@/components/ui/icons'
 import { useI18n } from '@/lib/i18n'
@@ -27,15 +27,33 @@ export function Header() {
 
       {personal.facts && personal.facts.length > 0 && (
         <ul className="mt-5 flex flex-wrap gap-2">
-          {personal.facts.map((fact) => (
-            <li
-              key={fact.icon + l(fact.label)}
-              className="inline-flex items-center gap-2 rounded-full bg-header-ink/[0.08] px-3 py-1 text-sm text-header-ink/90"
-            >
-              <Icon name={fact.icon} className="size-4 text-header-accent" />
-              {l(fact.label)}
-            </li>
-          ))}
+          {personal.facts.map((fact) => {
+            const content = (
+              <>
+                <Icon name={fact.icon} className="size-4 text-header-accent" />
+                {l(fact.label)}
+                {fact.href && <ExternalLink className="size-3.5 text-header-ink/60" aria-hidden="true" />}
+              </>
+            )
+            return (
+              <li key={fact.icon + l(fact.label)}>
+                {fact.href ? (
+                  <a
+                    href={fact.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-header-accent/15 px-3 py-1 text-sm font-medium text-header-ink ring-1 ring-header-accent/40 transition-colors hover:bg-header-accent/25"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center gap-2 rounded-full bg-header-ink/[0.08] px-3 py-1 text-sm text-header-ink/90">
+                    {content}
+                  </span>
+                )}
+              </li>
+            )
+          })}
         </ul>
       )}
 

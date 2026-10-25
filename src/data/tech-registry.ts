@@ -160,6 +160,9 @@ const TECH_REGISTRY = {
   'pytest': { color: '#0A9EDC' },
   'Allure': { color: '#7B61FF' },
   'Bruno': { color: '#F4AA41' },
+  'Agilitest': { color: '#1D9BD7' },
+  'Xray': { color: '#00A3E0' },
+  'Jira': { color: '#0052CC' },
 
   // ===== AI & Data =====
   'TensorFlow': { color: '#FF6F00' },

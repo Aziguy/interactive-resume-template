@@ -43,11 +43,13 @@ personal: {
   facts: [
     { icon: 'briefcase', label: { fr: "6 ans d'expérience", en: '6 years of experience' } },
     { icon: 'car', label: { fr: 'Permis B', en: 'Driving licence' } },
+    { icon: 'award', label: { fr: '+50 certifications', en: '50+ certifications' }, href: 'https://www.credly.com/users/...' },
   ],
 }
 ```
 
 - **Photo** : sans `photo`, la première image de `public/images/` est utilisée ; à défaut, les initiales. Format carré conseillé (400 × 400 px).
+- **Liens** : un `href` transforme la puce en lien mis en avant (profil Credly, portfolio...).
 - **Icônes** disponibles : voir [`icon-names.ts`](../src/components/ui/icon-names.ts) (`briefcase`, `car`, `globe`, `award`, `book`, `camera`, `plane`, `bike`...).
 
 ## Contact

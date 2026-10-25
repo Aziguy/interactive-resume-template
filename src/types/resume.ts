@@ -34,6 +34,8 @@ export interface SkillGroup {
 export interface Fact {
   icon: IconName
   label: Localized
+  /** Turns the chip into a link (e.g. a Credly profile). */
+  href?: string
 }
 
 export interface Experience {

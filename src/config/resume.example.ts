@@ -23,6 +23,7 @@ export const resumeConfig: ResumeConfig = {
       // Icons: see src/components/ui/icon-names.ts
       { icon: 'briefcase', label: { en: '6 years of experience', fr: "6 ans d'expérience" } },
       { icon: 'globe', label: { en: 'Remote friendly', fr: 'Télétravail possible' } },
+      { icon: 'award', label: { en: '12 certifications', fr: '12 certifications' }, href: 'https://www.credly.com/users/janedoe' }, // href: link chip
     ],
   },
 

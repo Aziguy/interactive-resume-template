@@ -14,7 +14,9 @@ function themeScript(config: ResumeConfig): string {
 }
 
 function jsonLd(config: ResumeConfig, l: (v: Localized) => string) {
-  const links = config.contact.filter((c) => c.href?.startsWith('http')).map((c) => c.href!)
+  const links = [...config.contact, ...(config.personal.facts ?? [])]
+    .map((item) => item.href)
+    .filter((href): href is string => !!href?.startsWith('http'))
   const email = config.contact.find((c) => c.type === 'email')?.label
   const skills = config.skills.flatMap((group) => group.items.map((item) => skillLabel(item, config.i18n.default, config.i18n.default)))
 
