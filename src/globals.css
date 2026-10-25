@@ -1,0 +1,50 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --color-resume-bg: var(--resume-bg);
+  --color-resume-bg-card: var(--resume-bg-card);
+  --color-resume-text: var(--resume-text);
+  --color-resume-text-secondary: var(--resume-text-secondary);
+  --color-resume-primary: var(--resume-primary);
+  --color-resume-primary-light: var(--resume-primary-light);
+  --color-resume-sidebar-from: var(--resume-sidebar-from);
+  --color-resume-sidebar-to: var(--resume-sidebar-to);
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --resume-bg: #fafaf9;
+  --resume-bg-card: #ffffff;
+  --resume-text: #1c1c1c;
+  --resume-text-secondary: #6b6b6b;
+  --resume-primary: #171717;
+  --resume-primary-light: #737373;
+  --resume-sidebar-from: #f4f4f4;
+  --resume-sidebar-to: #ebebeb;
+}
+
+.dark {
+  --resume-bg: #0a0a0a;
+  --resume-bg-card: #171717;
+  --resume-text: #f0f0f0;
+  --resume-text-secondary: #a0a0a0;
+  --resume-primary: #e5e5e5;
+  --resume-primary-light: #a3a3a3;
+  --resume-sidebar-from: #0f0f0f;
+  --resume-sidebar-to: #0a0a0a;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--resume-bg);
+  color: var(--resume-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+}
