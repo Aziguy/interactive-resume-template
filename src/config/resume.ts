@@ -51,7 +51,7 @@ export const resumeConfig: ResumeConfig = {
   experiences: [
     {
       id: 'dedalus',
-      role: { fr: 'Ingénieur chargé de l’automatisation des tests', en: 'Test Automation Engineer' },
+      role: { fr: 'Ingénieur automatisation des tests', en: 'Test Automation Engineer' },
       company: 'Dedalus Healthcare France',
       period: { start: '2025-10', end: 'present' },
       summary: {
@@ -98,7 +98,7 @@ export const resumeConfig: ResumeConfig = {
     },
     {
       id: 'ifb-cnrs',
-      role: { fr: 'Ingénieur d’études · Développeur web full-stack', en: 'Research Engineer · Full-Stack Web Developer' },
+      role: { fr: 'Ingénieur · Dév web full-stack', en: 'Engineer · Full-Stack Web Dev' },
       company: 'IFB · CNRS',
       location: { fr: 'France', en: 'France' },
       period: { start: '2021-11', end: '2024-11' },
@@ -122,7 +122,7 @@ export const resumeConfig: ResumeConfig = {
     },
     {
       id: 'dtn-solutions',
-      role: { fr: 'Ingénieur QA logiciel · Assistant chef de projet', en: 'Software QA Engineer · Project Manager Assistant' },
+      role: { fr: 'QA · Assistant chef de projet', en: 'QA · Project Manager Assistant' },
       company: 'DTN Solutions',
       location: { fr: 'Vietnam', en: 'Vietnam' },
       period: { start: '2018-12', end: '2022-10' },
