@@ -1,10 +1,9 @@
 import { createContext } from 'react'
-import type { ThemeColors, PresetName } from '@/data/types'
+import type { PresetName } from '@/types/resume'
 
 export interface ThemeContextValue {
   isDark: boolean
   toggle: () => void
-  colors: ThemeColors
   preset: PresetName
   setPreset: (preset: PresetName) => void
 }

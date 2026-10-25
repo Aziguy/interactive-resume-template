@@ -1,9 +1,4 @@
-/**
- * Central registry of known technologies with their brand colors.
- * Use the tech name in your config and the color is resolved automatically.
- *
- * To add a custom technology, add it here with its brand color.
- */
+/** Brand colors of known technologies. Unknown names use the theme accent. */
 const TECH_REGISTRY = {
   // ===== Frontend Frameworks =====
   'React': { color: '#61DAFB' },
@@ -59,6 +54,8 @@ const TECH_REGISTRY = {
   'NestJS': { color: '#E0234E' },
   'Fastify': { color: '#000000' },
   'Django': { color: '#092E20' },
+  'Django REST Framework': { color: '#A30000' },
+  'Celery': { color: '#37814A' },
   'Flask': { color: '#000000' },
   'FastAPI': { color: '#009688' },
   'Spring': { color: '#6DB33F' },
@@ -157,6 +154,12 @@ const TECH_REGISTRY = {
   'Testing Library': { color: '#E33332' },
   'Mocha': { color: '#8D6748' },
   'Selenium': { color: '#43B02A' },
+  'Robot Framework': { color: '#00C0B5' },
+  'Cucumber': { color: '#23D96C' },
+  'Postman': { color: '#FF6C37' },
+  'pytest': { color: '#0A9EDC' },
+  'Allure': { color: '#7B61FF' },
+  'Bruno': { color: '#F4AA41' },
 
   // ===== AI & Data =====
   'TensorFlow': { color: '#FF6F00' },
@@ -171,6 +174,7 @@ const TECH_REGISTRY = {
   'Strapi': { color: '#4945FF' },
   'Sanity': { color: '#F03E2F' },
   'Contentful': { color: '#2478CC' },
+  'Hugo': { color: '#FF4088' },
 
   // ===== Messaging & Realtime =====
   'RabbitMQ': { color: '#FF6600' },
@@ -187,13 +191,6 @@ const TECH_REGISTRY = {
 
 export type TechName = keyof typeof TECH_REGISTRY
 
-/**
- * Resolves the color for a given tech name.
- * Priority: registry → fallback gray.
- */
-export function getTechColor(name: string): string {
-  const registered = TECH_REGISTRY[name as TechName]
-  if (registered) return registered.color
-
-  return '#6b7280'
+export function getTechColor(name: string): string | undefined {
+  return (TECH_REGISTRY as Record<string, { color: string }>)[name]?.color
 }
