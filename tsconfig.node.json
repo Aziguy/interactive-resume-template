@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts", "vite-plugin-resume-seo.ts", "src/data/types.ts"]
+  "include": ["vite.config.ts", "build"]
 }

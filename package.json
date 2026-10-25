@@ -1,39 +1,51 @@
 {
   "name": "interactive-resume-template",
-  "version": "1.0.0",
-  "description": "An open-source interactive resume template. Clone it, fill in your info, deploy it.",
-  "homepage": "https://clementbouly.github.io/interactive-resume-template/",
+  "version": "2.0.0",
+  "description": "CV interactif bilingue en React et TypeScript, avec PDF A4 généré au build et déploiement GitHub Pages.",
+  "author": "Hippolyte Kengni (https://github.com/Aziguy)",
+  "homepage": "https://aziguy.github.io/interactive-resume-template/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/clementbouly/interactive-resume-template.git"
+    "url": "https://github.com/Aziguy/interactive-resume-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aziguy/interactive-resume-template/issues"
   },
   "keywords": [
     "resume",
     "cv",
-    "template",
+    "resume-template",
+    "interactive-resume",
+    "portfolio",
     "react",
     "typescript",
-    "portfolio",
-    "interactive",
-    "tailwindcss",
     "vite",
-    "open-source"
+    "tailwindcss",
+    "playwright",
+    "pdf",
+    "i18n",
+    "github-pages"
   ],
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:fast": "tsc -b && vite build --mode nopdf",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "typecheck": "tsc -b",
+    "pdf:setup": "playwright install chromium"
   },
   "dependencies": {
-    "agentation": "^2.2.1",
+    "@fontsource-variable/inter": "^5.3.0",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.34.0",
+    "lucide-react": "^1.61.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwind-merge": "^3.4.1"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -46,6 +58,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "playwright": "^1.64.1",
     "tailwindcss": "^4.1.18",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
