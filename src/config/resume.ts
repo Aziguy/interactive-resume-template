@@ -23,7 +23,7 @@ export const resumeConfig: ResumeConfig = {
     },
     location: 'Bordeaux, France',
     facts: [
-      { icon: 'briefcase', label: { fr: '+8 ans d’expérience en IT', en: '8+ years in IT' } },
+      { icon: 'briefcase', label: { fr: '+10 ans d’expérience en IT', en: '10+ years in IT' } },
       {
         icon: 'award',
         label: { fr: '+50 certifications Credly', en: '50+ Credly certifications' },
@@ -44,8 +44,8 @@ export const resumeConfig: ResumeConfig = {
   ],
 
   profile: {
-    fr: 'Ingénieur en automatisation des tests et développeur full-stack, fort de plus de 8 ans d’expérience en IT. Je bâtis des stratégies de test outillées, traçables et maintenables (Playwright, Cypress, Selenium, Xray) et des applications web robustes en Python, Django et React. Convaincu que l’IA transforme le métier de la qualité, j’exploite LLM et agents pour concevoir, générer et maintenir les tests plus vite, avec l’objectif d’une couverture proche de 100 %. Autodidacte, titulaire de plus de 50 certifications, je rends la qualité mesurable et partagée par toute l’équipe.',
-    en: 'Test automation engineer and full-stack developer with 8+ years in IT. I build tooled, traceable and maintainable test strategies (Playwright, Cypress, Selenium, Xray) and robust web applications with Python, Django and React. Convinced that AI is reshaping quality engineering, I use LLMs and agents to design, generate and maintain tests faster, aiming for near 100% coverage. Self-taught and holder of 50+ certifications, I make quality measurable and shared across the whole team.',
+    fr: 'Ingénieur en automatisation des tests et développeur full-stack, fort de plus de 10 ans d’expérience en IT. Je bâtis des stratégies de test outillées, traçables et maintenables (Playwright, Cypress, Selenium, Xray) et des applications web robustes en Python, Django et React. Convaincu que l’IA transforme le métier de la qualité, j’exploite LLM et agents pour concevoir, générer et maintenir les tests plus vite, avec l’objectif d’une couverture proche de 100 %. Autodidacte, titulaire de plus de 50 certifications, je rends la qualité mesurable et partagée par toute l’équipe.',
+    en: 'Test automation engineer and full-stack developer with 10+ years in IT. I build tooled, traceable and maintainable test strategies (Playwright, Cypress, Selenium, Xray) and robust web applications with Python, Django and React. Convinced that AI is reshaping quality engineering, I use LLMs and agents to design, generate and maintain tests faster, aiming for near 100% coverage. Self-taught and holder of 50+ certifications, I make quality measurable and shared across the whole team.',
   },
 
   experiences: [
