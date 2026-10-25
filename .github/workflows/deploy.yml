@@ -1,8 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -11,8 +12,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -22,33 +23,36 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
       - run: npm run lint
-      - name: Set base path
+
+      - name: Install Chromium for PDF generation
+        run: npx playwright install --with-deps chromium
+
+      - name: Resolve base path
         id: base
         run: |
-          REPO="${{ github.event.repository.name }}"
-          OWNER="${{ github.repository_owner }}"
-          # If repo is named <owner>.github.io, deploy to root
-          if [ "$REPO" = "${OWNER}.github.io" ]; then
+          if [ "${{ github.event.repository.name }}" = "${{ github.repository_owner }}.github.io" ]; then
             echo "path=/" >> "$GITHUB_OUTPUT"
           else
-            echo "path=/${REPO}/" >> "$GITHUB_OUTPUT"
+            echo "path=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Build
+      - name: Build site and PDFs
         run: npm run build
         env:
           VITE_BASE_PATH: ${{ steps.base.outputs.path }}
 
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: dist
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
